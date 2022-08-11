@@ -6,16 +6,16 @@ import Icon from "react-native-vector-icons/Ionicons"
 import { colors } from "../../theme/theme"
 
 const Home = ({ navigation }) => {
- function handleItemPress(index){
-  navigation.navigate("DetailView",{
-    index
-  })
+  function handleItemPress(index) {
+    navigation.navigate("DetailView", {
+      index
+    })
 
- }
+  }
   return (
     <SafeAreaView style={{ flex: 1, padding: 32, backgroundColor: colors.background }}>
       {/* Toolbar */}
-      <Toolbar />
+      <Toolbar onAvatarPress={() => navigation.navigate("Profile")} />
       {/* Search Bar */}
       <SearchBar />
       {/* Big Sale */}
@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
   )
 }
 
-function Toolbar() {
+function Toolbar({ onAvatarPress }) {
   return (
     <View style={{
       flexDirection: 'row',
@@ -48,7 +48,9 @@ function Toolbar() {
         </Text>
       </View>
       {/* Profile Pic */}
-      <Avatar.Image size={32} />
+      <TouchableOpacity onPress={onAvatarPress}>
+        <Avatar.Image size={32} />
+      </TouchableOpacity>
     </View>
   )
 }
@@ -101,7 +103,7 @@ function TagCategories() {
   )
 }
 
-function ItemListView({onItemPress}) {
+function ItemListView({ onItemPress }) {
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
@@ -114,13 +116,13 @@ function ItemListView({onItemPress}) {
           <Card style={{
             width: (Dimensions.get("screen").width - 64 - 16) / 2,
             margin: 4,
-            height:240,
-            borderRadius:16, backgroundColor:colors.primary
+            height: 240,
+            borderRadius: 16, backgroundColor: colors.primary
           }}>
-            <Card.Cover source={{uri : 'https://picsum.photos/200/300'}} />
+            <Card.Cover source={{ uri: 'https://picsum.photos/200/300' }} />
             <Card.Content>
               <Text>
-               Item {item}
+                Item {item}
               </Text>
             </Card.Content>
           </Card>
