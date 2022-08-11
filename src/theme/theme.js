@@ -4,7 +4,7 @@ const colors = {
     onPrimary: "#ffffff",
     primaryContainer: "#e1e0ff",
     onPrimaryContainer: "#04006d",
-    background: "#fffbff",
+    background: "#FAFAFF",
     onBackground: "#130463",
     surface: "#fffbff",
     onSurface: "#130463",

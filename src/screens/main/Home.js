@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
 
  }
   return (
-    <SafeAreaView style={{ flex: 1, padding: 32, backgroundColor: "#FAFAFF" }}>
+    <SafeAreaView style={{ flex: 1, padding: 32, backgroundColor: colors.background }}>
       {/* Toolbar */}
       <Toolbar />
       {/* Search Bar */}
@@ -117,6 +117,7 @@ function ItemListView({onItemPress}) {
             height:240,
             borderRadius:16, backgroundColor:colors.primary
           }}>
+            <Card.Cover source={{uri : 'https://picsum.photos/200/300'}} />
             <Card.Content>
               <Text>
                Item {item}
