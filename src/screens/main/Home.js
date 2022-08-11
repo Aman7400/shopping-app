@@ -6,6 +6,12 @@ import Icon from "react-native-vector-icons/Ionicons"
 import { colors } from "../../theme/theme"
 
 const Home = ({ navigation }) => {
+ function handleItemPress(index){
+  navigation.navigate("DetailView",{
+    index
+  })
+
+ }
   return (
     <SafeAreaView style={{ flex: 1, padding: 32, backgroundColor: "#FAFAFF" }}>
       {/* Toolbar */}
@@ -17,7 +23,7 @@ const Home = ({ navigation }) => {
       {/* Tags */}
       <TagCategories />
       {/* List View */}
-      <ItemListView />
+      <ItemListView onItemPress={handleItemPress} />
     </SafeAreaView>
   )
 }
@@ -95,7 +101,7 @@ function TagCategories() {
   )
 }
 
-function ItemListView() {
+function ItemListView({onItemPress}) {
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
@@ -104,7 +110,7 @@ function ItemListView() {
       data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
       keyExtractor={(item) => item}
       renderItem={({ item }) =>
-        <TouchableOpacity >
+        <TouchableOpacity onPress={() => onItemPress(item)} >
           <Card style={{
             width: (Dimensions.get("screen").width - 64 - 16) / 2,
             margin: 4,
