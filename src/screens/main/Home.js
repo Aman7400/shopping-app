@@ -65,7 +65,9 @@ function SearchBar() {
       marginBottom: 32
     }}>
       <Searchbar style={{ flex: 1, borderRadius: 12 }} />
-      <Icon name="filter" size={24} style={{ marginLeft: 16 }} />
+      <TouchableOpacity style={{borderRadius:8,marginLeft: 16,padding:8,justifyContent: "center",alignItems: "center",backgroundColor:colors.primary}}>
+        <Icon name="options-outline" color="white" size={24} />
+      </TouchableOpacity>
     </View>
   )
 }

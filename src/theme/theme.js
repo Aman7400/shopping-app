@@ -1,6 +1,6 @@
 
 const colors = {
-    primary: 'pink',
+    primary: '#FBAAB5',
     onPrimary: "#ffffff",
     primaryContainer: "#e1e0ff",
     onPrimaryContainer: "#04006d",
