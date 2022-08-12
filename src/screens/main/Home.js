@@ -83,15 +83,15 @@ function BigSale({ onPress }) {
         padding: 16,
         marginBottom: 32
       }}>
-        <View style={{display:"flex",flexDirection:"row",padding:2}}>
+        <View style={{ display: "flex", flexDirection: "row", padding: 2 }}>
           <Image source={{ uri: 'https://picsum.photos/200/300' }} style={{ width: 88, borderRadius: 8 }} />
-          <View style={{flex:1,marginLeft:16 }}>
+          <View style={{ flex: 1, marginLeft: 16 }}>
             <Text style={{ color: colors.onPrimary, fontWeight: 'bold', fontSize: 18 }}>
               Big Sale
             </Text>
             <Text style={{ color: colors.onPrimary }}>
               Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet,
-               consectetur adip
+              consectetur adip
             </Text>
           </View>
         </View>
@@ -103,10 +103,14 @@ function BigSale({ onPress }) {
 function TagCategories() {
   const [selected, setSelected] = React.useState(0)
   return (
-    <View style={{ height: 42, marginBottom: 32 }}>
+    <View style={{ height: 42, marginBottom: 16 }}>
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         {
-          ["All", "Popular", "Recent", "Recommended"].map((item, i) => <Chip style={{ marginRight: 16, backgroundColor: selected === i ? colors.primary : "#f0f0f0" }} key={i} onPress={() => setSelected(i)}>{item}</Chip>)
+          ["All", "Popular", "Recent", "Recommended"].map((item, i) => <Chip style={{ marginRight: 16, backgroundColor: selected === i ? colors.primary : "#f0f0f0" }} key={i} onPress={() => setSelected(i)}>
+            <Text style={{ color: selected === i ? colors.onPrimary : "grey", fontWeight: 'bold' }}>
+              {item}
+            </Text>
+          </Chip>)
         }
       </ScrollView>
     </View>
