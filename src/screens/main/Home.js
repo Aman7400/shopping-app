@@ -12,12 +12,13 @@ const Home = ({ navigation }) => {
     })
 
   }
+
   return (
-    <SafeAreaView style={{ flex: 1, padding: 32, paddingBottom:0, backgroundColor: colors.background }}>
+    <SafeAreaView style={{ flex: 1, padding: 32, paddingBottom: 0, backgroundColor: colors.background }}>
       {/* Toolbar */}
       <Toolbar onAvatarPress={() => navigation.navigate("Profile")} />
       {/* Search Bar */}
-      <SearchBar />
+      <SearchBar  />
       {/* Big Sale */}
       <BigSale onPress={() => navigation.navigate("Explore")} />
       {/* Tags */}
@@ -37,7 +38,7 @@ function Toolbar({ onAvatarPress }) {
       marginBottom: 32
     }}>
       {/* Menu Icon */}
-      <TouchableOpacity onPress={() => alert("Opening Drawer")} style={{padding:8,borderRadius:50,alignItems: 'center',justifyContent:"center",backgroundColor:colors.primary}}>
+      <TouchableOpacity onPress={() => alert("Opening Drawer")} style={{ padding: 8, borderRadius: 50, alignItems: 'center', justifyContent: "center", backgroundColor: colors.primary }}>
         <Icon name="grid" color="white" size={24} />
       </TouchableOpacity>
       {/* User Info */}
@@ -57,15 +58,16 @@ function Toolbar({ onAvatarPress }) {
   )
 }
 
-function SearchBar() {
+function SearchBar({ onToggleSnackBar }) {
+
   return (
     <View style={{
       flexDirection: "row",
       alignItems: "center",
       marginBottom: 32
     }}>
-      <Searchbar style={{ flex: 1, borderRadius: 12 }} />
-      <TouchableOpacity style={{borderRadius:8,marginLeft: 16,padding:8,justifyContent: "center",alignItems: "center",backgroundColor:colors.primary}}>
+      <Searchbar selectionColor={colors.primary} iconColor={colors.primary} inputStyle={{ color: colors.primary, fontWeight: "bold" }} style={{ flex: 1, borderRadius: 12 }} />
+      <TouchableOpacity onPress={() => alert("Filter By")} style={{ borderRadius: 8, marginLeft: 16, padding: 8, justifyContent: "center", alignItems: "center", backgroundColor: colors.primary }}>
         <Icon name="options-outline" color="white" size={24} />
       </TouchableOpacity>
     </View>
