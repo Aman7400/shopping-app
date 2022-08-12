@@ -37,7 +37,9 @@ function Toolbar({ onAvatarPress }) {
       marginBottom: 32
     }}>
       {/* Menu Icon */}
-      <Icon name="menu" size={32} />
+      <TouchableOpacity onPress={() => alert("Opening Drawer")} style={{padding:8,borderRadius:8,alignItems: 'center',justifyContent:"center",backgroundColor:colors.primary}}>
+        <Icon name="grid" color="white" size={24} />
+      </TouchableOpacity>
       {/* User Info */}
       <View style={{ alignItems: 'center' }}>
         <Text style={{ fontSize: 12 }} >
