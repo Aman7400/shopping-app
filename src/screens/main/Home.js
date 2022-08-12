@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
 
   }
   return (
-    <SafeAreaView style={{ flex: 1, padding: 32, backgroundColor: colors.background }}>
+    <SafeAreaView style={{ flex: 1, padding: 32, paddingBottom:0, backgroundColor: colors.background }}>
       {/* Toolbar */}
       <Toolbar onAvatarPress={() => navigation.navigate("Profile")} />
       {/* Search Bar */}
@@ -121,7 +121,7 @@ function ItemListView({ onItemPress }) {
             width: (Dimensions.get("screen").width - 64 - 16) / 2,
             margin: 4,
             height: 240,
-            borderRadius: 16, backgroundColor: colors.primary
+            backgroundColor: colors.primary
           }}>
             <Card.Cover source={{ uri: 'https://picsum.photos/200/300' }} />
             <Card.Content>
