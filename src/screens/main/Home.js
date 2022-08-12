@@ -130,15 +130,26 @@ function ItemListView({ onItemPress }) {
           <Card style={{
             width: (Dimensions.get("screen").width - 64 - 16) / 2,
             margin: 4,
-            height: 240,
-            backgroundColor: colors.primary
+            marginBottom: 8,
+            // height: 240,
+            backgroundColor: "transparent"
           }}>
-            <Card.Cover source={{ uri: 'https://picsum.photos/200/300' }} />
-            <Card.Content>
-              <Text>
-                Item {item}
-              </Text>
-            </Card.Content>
+            <Image style={{ borderRadius: 16, height: 256 }} source={{ uri: 'https://picsum.photos/200/300' }} />
+            <View style={{
+              padding: 8, flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center"
+            }}>
+              <View>
+                <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+                  Item {item}
+                </Text>
+                <Text style={{ fontSize: 16, color: "grey" }}>
+                  ${item * 100}
+                </Text>
+              </View>
+                <Icon name="heart-outline" color={colors.primary} size={24} />
+            </View>
           </Card>
         </TouchableOpacity>} />
   )
