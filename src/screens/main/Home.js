@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Avatar, Card, Chip, Searchbar } from 'react-native-paper';
@@ -18,7 +18,7 @@ const Home = ({ navigation }) => {
       {/* Toolbar */}
       <Toolbar onAvatarPress={() => navigation.navigate("Profile")} />
       {/* Search Bar */}
-      <SearchBar  />
+      <SearchBar />
       {/* Big Sale */}
       <BigSale onPress={() => navigation.navigate("Explore")} />
       {/* Tags */}
@@ -83,14 +83,18 @@ function BigSale({ onPress }) {
         padding: 16,
         marginBottom: 32
       }}>
-        <Card.Content>
-          <Text style={{ color: colors.onPrimary, fontWeight: 'bold', fontSize: 18 }}>
-            Big Sale
-          </Text>
-          <Text style={{ color: colors.onPrimary, fontWeight: 'bold' }}>
-            Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet, consectetur adip
-          </Text>
-        </Card.Content>
+        <View style={{display:"flex",flexDirection:"row",padding:2}}>
+          <Image source={{ uri: 'https://picsum.photos/200/300' }} style={{ width: 88, borderRadius: 8 }} />
+          <View style={{flex:1,marginLeft:16 }}>
+            <Text style={{ color: colors.onPrimary, fontWeight: 'bold', fontSize: 18 }}>
+              Big Sale
+            </Text>
+            <Text style={{ color: colors.onPrimary }}>
+              Lorem ipsum dolor sit amet, consectetur adip Lorem ipsum dolor sit amet,
+               consectetur adip
+            </Text>
+          </View>
+        </View>
       </Card>
     </TouchableOpacity>
   )
