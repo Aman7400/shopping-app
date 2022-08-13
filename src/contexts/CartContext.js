@@ -9,7 +9,23 @@ export const CartContextProvider = ({ children }) => {
     const [totalAmount, setTotalAmount] = React.useState(0);
 
     function addItem(newItem) {
-        setItems(prev => [...prev, newItem])
+
+
+        let itemPresentIndex = items.findIndex((item) => {
+            return item.title === newItem.title && item.selectedSize === newItem.selectedSize
+        })
+
+        if (itemPresentIndex < 0) { // item is not present
+            return setItems(prev => [...prev, newItem])
+        }
+
+        // if item already present, increase the quantity only
+
+        let updatedQuantity = ++items[itemPresentIndex].quantity
+
+        updateItem(itemPresentIndex, updatedQuantity)
+
+
     }
 
     function removeItem(id) {
@@ -17,7 +33,7 @@ export const CartContextProvider = ({ children }) => {
         setItems([...temp])
     }
 
-    function emptyCart(){
+    function emptyCart() {
         setItems([])
     }
 
@@ -31,17 +47,17 @@ export const CartContextProvider = ({ children }) => {
 
 
     function calculateTotalAmount() {
-        const total = items.reduce((sum, item) => sum = sum + item.price*item.quantity, 0)
+        const total = items.reduce((sum, item) => sum = sum + item.price * item.quantity, 0)
         setTotalAmount(total);
 
     }
 
     React.useEffect(() => {
         calculateTotalAmount()
-    },[items])
+    }, [items])
 
     return (
-        <CartContext.Provider value={{ addedItems: items, totalAmount, addItem, removeItem, updateItem,emptyCart }}>
+        <CartContext.Provider value={{ addedItems: items, totalAmount, addItem, removeItem, updateItem, emptyCart }}>
             {children}
         </CartContext.Provider>
     )

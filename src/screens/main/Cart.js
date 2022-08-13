@@ -68,9 +68,6 @@ function CartItemList({ navigation }) {
               flex: 1
             }}>
               <View>
-              <Text style={{ fontSize: 8, fontWeight: "bold" }}>
-                  {item?.id}
-                </Text>
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   {item?.title} ({item?.selectedSize})
                 </Text>
@@ -168,7 +165,7 @@ function Checkout() {
         <Text style={{ fontSize: 24, fontWeight: "bold", }}>${totalAmount}</Text>
       </View>
       {
-        totalAmount > 0 && <Button labelStyle={{ color: "white", fontWeight: "bold" }} style={{ padding: 8, backgroundColor: colors.primary, borderRadius: 8, flex: 1 }}>
+        totalAmount > 0 && <Button labelStyle={{ color: "white", fontWeight: "bold" }} style={{ padding: 8, backgroundColor: colors.primaryContainer, borderRadius: 8, flex: 1 }}>
           Pay Now
         </Button>
       }

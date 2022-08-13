@@ -2,7 +2,7 @@
 const colors = {
     primary: '#FBAAB5',
     onPrimary: "#ffffff",
-    primaryContainer: "#e1e0ff",
+    primaryContainer: "#F58C91",
     onPrimaryContainer: "#04006d",
     background: "#FAFAFF",
     onBackground: "#130463",
