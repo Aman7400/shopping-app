@@ -4,30 +4,54 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, IconButton } from 'react-native-paper';
 import { colors } from "../../theme/theme"
 import Icon from "react-native-vector-icons/Ionicons"
+import { CartContext } from '../../contexts/CartContext';
 
-const Cart = () => {
+
+const Cart = ({ navigation }) => {
+const { emptyCart } = React.useContext(CartContext)
+
   return (
     <SafeAreaView style={{ position: "relative", flex: 1, paddingHorizontal: 32, paddingBottom: 0 }}>
       {/* Toolbar */}
-      <Text style={{ fontSize: 24, fontWeight: "bold" }}>Your Cart</Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Your Cart</Text>
+        <Text onPress={() => emptyCart()}>
+          Clear All
+        </Text>
+      </View>
       {/* Cart Item List */}
-      <CartItemList />
+      <CartItemList navigation={navigation} />
       {/* Checkout */}
       <Checkout />
     </SafeAreaView>
   )
 }
 
-function CartItemList() {
+function CartItemList({ navigation }) {
+  const { addedItems, removeItem, updateItem } = React.useContext(CartContext)
+
+  if (addedItems.length <= 0) {
+    return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontSize: 32, fontWeight: 'bold' }}>Cart is Empty</Text>
+      <Button onPress={() => navigation.navigate("Home")} style={{ padding: 4, backgroundColor: colors.primary }} labelStyle={{
+        color: colors.onPrimary
+      }}>Go Shopping !!</Button>
+    </View>
+  }
+
+
   return (
     <View style={{ paddingTop: 16 }}>
       <FlatList
         showsVerticalScrollIndicator={false}
         scrollsToTop={true}
-        data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-        keyExtractor={(item) => item}
-        renderItem={({ item }) =>
-          <View style={{
+        data={addedItems}
+        keyExtractor={(item) => {
+         return item?.id
+        }}
+        renderItem={( {item,index} ) => {
+
+          return (<View style={{
             width: "100%",
             marginBottom: 8,
             flexDirection: "row",
@@ -44,51 +68,82 @@ function CartItemList() {
               flex: 1
             }}>
               <View>
-                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-                  Item {item}
+              <Text style={{ fontSize: 8, fontWeight: "bold" }}>
+                  {item?.id}
                 </Text>
-                <Text style={{ fontSize: 14, color: "grey",marginBottom:8 }}>
-                  ${item * 100}
+                <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                  {item?.title} ({item?.selectedSize})
+                </Text>
+                <Text style={{ fontSize: 14, color: "grey", marginBottom: 8 }}>
+                  ${item?.price}
                 </Text>
                 {/* CountHandler */}
-
-                <QuantityHandler />
-
+                <QuantityHandler index={index} item={item} updateItem={updateItem} />
               </View>
-              <Icon name="trash-outline" color="red" size={24} />
+              <Icon name="trash-outline" onPress={() => removeItem(item?.id)} color="red" size={24} />
             </View>
-          </View>} />
+          </View>)
+        }
+        } />
     </View>
   )
 }
 
-function QuantityHandler() {
+function QuantityHandler({ item,index, updateItem }) {
+
+  function handleDecrease() {
+    if (item.quantity === 1) {
+
+      alert("Minimum 1 is required");
+
+      return;
+
+    }
+    let updatedQuantity = --item.quantity;
+    updateItem(index, updatedQuantity)
+  }
+  function handleIncrease() {
+    if (item.quantity === 10) {
+
+      alert("Maximum 10 is allowed");
+
+      return;
+
+    }
+    let updatedQuantity = ++item.quantity;
+    updateItem(index, updatedQuantity)
+  }
+
   return (
     <View style={{
       flexDirection: "row", alignItems: "center"
     }}>
 
       {/* Subtract */}
-      <TouchableOpacity style={{
-        backgroundColor:colors.primary, 
-        padding:4,
-        borderRadius:4,
-        marginRight:8
-      }}>
+      <TouchableOpacity
+        onPress={() => handleDecrease()}
+        style={{
+          backgroundColor: colors.primary,
+          padding: 4,
+          borderRadius: 4,
+          marginRight: 8
+        }}>
         <Icon name="remove" size={20} color="white" />
       </TouchableOpacity>
       {/* Value */}
       <Text style={{
-        fontSize:16,
+        fontSize: 16,
         fontWeight: "bold",
-      }}>{1}</Text>
+      }}>{item.quantity}</Text>
       {/* Add */}
-      <TouchableOpacity style={{
-        backgroundColor:colors.primary, 
-        padding:4,
-        borderRadius:4,
-        marginLeft:8
-      }}>
+      <TouchableOpacity
+        onPress={() => handleIncrease()}
+        style={{
+          backgroundColor: colors.primary,
+          padding: 4,
+          borderRadius: 4,
+          marginLeft: 8
+        }}>
         <Icon name="add" size={20} color="white" />
       </TouchableOpacity>
 
@@ -97,6 +152,7 @@ function QuantityHandler() {
 }
 
 function Checkout() {
+  const { totalAmount } = React.useContext(CartContext)
   return (
     <View style={{
       backgroundColor: "white",
@@ -107,13 +163,15 @@ function Checkout() {
       flexDirection: "row",
       justifyContent: "space-between"
     }}>
-      <View style={{ flex: .5, alignItems: "center", justifyContent: "center" }} >
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }} >
         <Text style={{ fontSize: 14, color: "grey" }}>Total Amount:</Text>
-        <Text style={{ fontSize: 24, fontWeight: "bold", }}>$1000</Text>
+        <Text style={{ fontSize: 24, fontWeight: "bold", }}>${totalAmount}</Text>
       </View>
-      <Button labelStyle={{ color: "white", fontWeight: "bold" }} style={{ padding: 8, backgroundColor: colors.primary, borderRadius: 8, flex: .5 }}>
-        Pay Now
-      </Button>
+      {
+        totalAmount > 0 && <Button labelStyle={{ color: "white", fontWeight: "bold" }} style={{ padding: 8, backgroundColor: colors.primary, borderRadius: 8, flex: 1 }}>
+          Pay Now
+        </Button>
+      }
     </View>
   )
 }

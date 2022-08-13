@@ -4,9 +4,13 @@ import Icon from "react-native-vector-icons/Ionicons"
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { colors } from '../../theme/theme'
 import { Button } from 'react-native-paper'
+import { CartContext } from '../../contexts/CartContext'
+import uuid from 'react-native-uuid';
+
 
 const DetailView = ({ route, navigation }) => {
   const { index } = route.params
+  const { addItem } = React.useContext(CartContext)
   const [isLiked, setIsLiked] = React.useState(false)
   const [selectedSize, setSelectedSize] = React.useState("S")
   function handleSelectedSizeChange(size) {
@@ -15,9 +19,10 @@ const DetailView = ({ route, navigation }) => {
 
   function handleBuyNow() {
     let order = {
-      isLiked, selectedSize, price: index * 100, title: `Item ${index}`
+      quantity: 1, id: uuid.v4(), isLiked, selectedSize, price: index * 100, title: `Item ${index}`
     }
-    alert(order)
+    addItem(order)
+    navigation.goBack();
   }
 
   return (
