@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, padding: 32, paddingBottom: 0, backgroundColor: colors.background }}>
       {/* Toolbar */}
-      <Toolbar onAvatarPress={() => navigation.navigate("Profile")} />
+      <Toolbar onNotificationPress={() => navigation.navigate("Notifications")} />
       {/* Search Bar */}
       <SearchBar />
       {/* Big Sale */}
@@ -29,7 +29,7 @@ const Home = ({ navigation }) => {
   )
 }
 
-function Toolbar({ onAvatarPress }) {
+function Toolbar({ onNotificationPress }) {
   return (
     <View style={{
       flexDirection: 'row',
@@ -51,8 +51,8 @@ function Toolbar({ onAvatarPress }) {
         </Text>
       </View>
       {/* Profile Pic */}
-      <TouchableOpacity onPress={onAvatarPress}>
-        <Avatar.Image size={32} />
+      <TouchableOpacity onPress={() => onNotificationPress()}>
+        <Icon name="notifications-outline" color="grey" size={24} />
       </TouchableOpacity>
     </View>
   )
